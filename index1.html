@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Suku 🎉</title>
+  <style>
+    body {
+  background: linear-gradient(-45deg, #ffd348, #ff8561, #2bdbeb, #6aa2ff);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-align: center;
+  padding: 50px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+    h1 {
+      font-size: 3em;
+      color: #ff4081;
+      margin-bottom: 0;
+    }
+    p {
+      font-size: 1.5em;
+      color: #333;
+      margin-top: 10px;
+    }
+    .photo {
+      margin: 20px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 5px solid #fff;
+      width: 220px;
+      height: 220px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .btn {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      padding: 12px 24px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #e91e63;
+    }
+    .cake {
+      margin-top: 30px;
+	  margin-bottom: 50px;
+    }
+    .cake img {
+  width: 100%;
+  max-width: 200px;
+  max-height: 200px;
+  animation: wiggle 1s infinite;
+  display: block;
+  margin: 0 auto;
+}
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+	
+	@keyframes zoomIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.emoji {
+  position: fixed;
+  font-size: 2rem;
+  animation: fall 3s linear forwards;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10%); opacity: 1; }
+  100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+
+.blast-emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: blast 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes blast {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(2);
+    opacity: 0;
+  }
+}
+
+.blast-emoji {
+  position: fixed;
+  font-size: 2.2rem;
+  animation: blast 1.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes blast {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Base Styles are already good — add mobile tweaks below */
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    padding: 0 10px;
+  }
+
+  .photo {
+    width: 160px;
+    height: 160px;
+    margin: 15px auto;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .cake img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  #celebration {
+    font-size: 1.5rem;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.background-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%; /* make them circular */
+  animation: floatUp 10s linear infinite;
+}
+
+/* Randomize positions and sizes */
+.shape:nth-child(1) { left: 10%; animation-delay: 0s; }
+.shape:nth-child(2) { left: 25%; animation-delay: 2s; }
+.shape:nth-child(3) { left: 40%; animation-delay: 4s; }
+.shape:nth-child(4) { left: 55%; animation-delay: 1s; }
+.shape:nth-child(5) { left: 70%; animation-delay: 3s; }
+.shape:nth-child(6) { left: 85%; animation-delay: 0.5s; }
+.shape:nth-child(7) { left: 15%; animation-delay: 6s; }
+.shape:nth-child(8) { left: 35%; animation-delay: 7s; }
+.shape:nth-child(9) { left: 60%; animation-delay: 5s; }
+.shape:nth-child(10) { left: 80%; animation-delay: 8s; }
+
+@keyframes floatUp {
+  0% {
+    bottom: -40px;
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-100px) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    bottom: 110%;
+    transform: translateY(-200px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+#mask-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  flex-direction: column;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+.mask-content img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.mask-content p {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-family: 'Comic Sans MS', cursive;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Masking Screen Styles */
+#mask-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #000000e6 30%, #000000f2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  flex-direction: column;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.mask-content img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  animation: pulseGlow 2s infinite ease-in-out;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.mask-content p {
+  color: #fff;
+  margin-top: 25px;
+  font-size: 1.8rem;
+  font-family: 'Comic Sans MS', cursive;
+  animation: floatText 3s ease-in-out infinite;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes floatText {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes zoomOutFade {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.video-section {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.video-section h2 {
+  font-size: .9rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.video-container {
+  width: 100%;
+  max-width: 600px;
+  height: 400px; /* ✅ FIXED height */
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  position: relative;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 15px;
+}
+
+
+
+.video-section {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.video-heading {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Fake thumbnail style */
+.fake-player {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  background: #111;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.fake-play-button {
+  font-size: 4rem;
+  color: white;
+  transition: transform 0.3s;
+}
+.fake-play-button:hover {
+  transform: scale(1.2);
+}
+
+/* Alert box style */
+.alert-box {
+  display: none;
+  background-color: #ffeb3b;
+  color: #222;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  animation: flash 0.5s alternate infinite;
+}
+
+@keyframes flash {
+  from { box-shadow: 0 0 10px red; }
+  to   { box-shadow: 0 0 20px yellow; }
+}
+
+/* Real video styling */
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 15px;
+}
+
+
+/* Popup Alert Styles */
+.popup-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.popup-box {
+  background: #fff8c6;
+  padding: 30px 20px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  animation: zoomIn 0.3s ease-out;
+}
+
+.popup-box h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #d32f2f;
+}
+
+.popup-box p {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 15px 0;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.popup-continue, .popup-abort {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.popup-continue {
+  background-color: #4caf50;
+  color: white;
+}
+
+.popup-abort {
+  background-color: #f44336;
+  color: white;
+}
+
+.popup-continue:hover, .popup-abort:hover {
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+<div id="mask-screen" onclick="revealSite()">
+  <div class="mask-content">
+    <img src="./mask.jpg" alt="Mask Face" />
+    <p>Tap to Reveal the Surprise 🎉</p>
+  </div>
+</div>
+
+  <h1>Happy Birthday Suku! 🎂🎂</h1>
+  <p>Congratulations on leveling up in life without any cheat codes! 😜</p>
+
+  <div class="photo">
+    <img src="./DP2.jpg" alt="Birthday Boy Suku">
+  </div>
+
+  <p>Another year wiser? Debatable. Another year cooler? Absolutely! 🧢😎</p>
+
+  <button class="btn" onclick="playSound()">Hit me with the party vibes 🎉</button>
+
+  <div class="cake">
+    <img src="./giphy.gif" alt="Dancing Cake">
+  </div>
+
+<!-- 🎥 Funny Suku Video Section -->
+<div class="video-section">
+  <h2 class="video-heading">🎬⚠️⏳Compiling... ⚙️🧠 Suku's Greatest LOL Moments 😂🔥</h2>
+
+  <!-- Fake thumbnail or play button -->
+  <div id="videoThumbnail" class="video-container fake-player">
+    <div class="fake-play-button">▶️</div>
+  </div>
+
+<!-- 🎯 Popup Alert Box -->
+<div id="systemAlert" class="popup-alert">
+  <div class="popup-box">
+    <h3>⚠️ SYSTEM ALERT ⚠️</h3>
+    <p>💥 Suku's Iconic Hilarity Detected!<br>🚫 Please Avoid 😂💀</p>
+    <div class="popup-buttons">
+      <button onclick="playSukuVideo()" class="popup-continue">✅ Continue</button>
+      <button onclick="abortVideo()" class="popup-abort">❌ Abort</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Real video, hidden initially -->
+  <div id="realVideo" class="video-container" style="display: none;">
+    <iframe 
+      src="./SukuOG.mp4" 
+      title="Funny Birthday Video" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+
+  <canvas id="confetti"></canvas>
+  <audio id="birthdaySound" src="./meme.mp3"></audio>
+
+  <script>
+    function playSound() {
+  blastFromButton(); // 💥 epic wide explosion
+
+  const audio = document.getElementById("birthdaySound");
+  audio.currentTime = 0;
+  audio.play();
+
+  const celebration = document.getElementById("celebration");
+  celebration.style.display = "flex";
+  setTimeout(() => celebration.style.display = "none", 4000);
+
+  // Start emoji rain after the explosion
+  setTimeout(() => {
+    launchEmojis();
+  }, 1000);
+
+  // Confetti burst continues
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => draw(), i * 100);
+  }
+}
+
+
+
+// Emoji Rain Function
+function launchEmojis() {
+  const emojis = ['🎉','🎂','🥳','🎈','🎁','✨','😎','💥'];
+  for (let i = 0; i < 50; i++) {
+    const emoji = document.createElement('div');
+    emoji.className = 'emoji';
+    emoji.style.left = Math.random() * 100 + 'vw';
+    emoji.style.top = '-5vh';
+    emoji.style.fontSize = `${2 + Math.random() * 2}rem`;
+    emoji.style.position = 'fixed';
+    emoji.style.animation = `fall ${2 + Math.random() * 2}s linear forwards`;
+    emoji.style.zIndex = 10001;
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+      emoji.remove();
+    }, 4000);
+  }
+}
+
+function blastFromButton() {
+  const emojis = ['🎂', '🎉', '💥', '🎊'];
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  for (let i = 0; i < 80; i++) {
+    const emoji = document.createElement('div');
+    emoji.className = 'blast-emoji';
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 100 + Math.random() * 300;
+    const x = Math.cos(angle) * distance + 'px';
+    const y = Math.sin(angle) * distance + 'px';
+
+    emoji.style.setProperty('--x', x);
+    emoji.style.setProperty('--y', y);
+    emoji.style.left = centerX + 'px';
+    emoji.style.top = centerY + 'px';
+
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 1200);
+  }
+}
+
+
+
+    // Confetti
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    for (let i = 0; i < 120; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 50,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.r, p.r);
+      }
+      update();
+    }
+
+    function update() {
+      for (let p of particles) {
+        p.y += Math.cos(p.d) + 1 + p.r / 2;
+        p.x += Math.sin(p.d) * 2;
+        if (p.y > canvas.height) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    setInterval(draw, 30);
+	
+	function revealSite() {
+  const mask = document.getElementById("mask-screen");
+  mask.style.animation = "zoomOutFade 0.8s ease forwards";
+
+  setTimeout(() => {
+    mask.style.display = "none";
+  }, 800);
+}
+
+
+  </script>
+  
+ <script>
+  const videoThumbnail = document.getElementById("videoThumbnail");
+  const systemAlert = document.getElementById("systemAlert");
+  const realVideo = document.getElementById("realVideo");
+
+  videoThumbnail.addEventListener("click", () => {
+    systemAlert.style.display = "flex";
+  });
+
+  function playSukuVideo() {
+    systemAlert.style.display = "none";
+    videoThumbnail.style.display = "none";
+    realVideo.style.display = "block";
+  }
+
+  function abortVideo() {
+    systemAlert.style.display = "none";
+  }
+</script>
+
+
+  <div id="celebration" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; color: white; text-align: center; font-size: 2rem;">
+  <div style="animation: zoomIn 0.5s ease-out;">
+    🎊🎉 PARTY TIME, Suku! 🎉🎊
+  </div>
+</div>
+
+<div class="background-shapes">
+  <!-- 10 floating shapes -->
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+</body>
+</html>
